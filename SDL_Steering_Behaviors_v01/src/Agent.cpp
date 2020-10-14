@@ -3,17 +3,18 @@
 using namespace std;
 
 Agent::Agent() : sprite_texture(0),
-                 position(Vector2D(100, 100)),
-	             target(Vector2D(1000, 100)),
-	             velocity(Vector2D(0,0)),
-	             speed(0.5),
-	             max_force(5),
-	             max_velocity(200),
-	             orientation(0),
-				 sprite_num_frames(0),
-	             sprite_w(0),
-	             sprite_h(0),
-	             draw_sprite(false)
+position(Vector2D(100, 100)),
+target(Vector2D(1000, 100)),
+velocity(Vector2D(0, 0)),
+speed(0.5),
+max_force(5),
+max_velocity(200),
+mass(0.001f),
+orientation(0),
+sprite_num_frames(0),
+sprite_w(0),
+sprite_h(0),
+draw_sprite(false)
 {
 }
 
@@ -50,6 +51,14 @@ float Agent::getMaxVelocity()
 	return max_velocity;
 }
 
+float Agent::getMaxForce() {
+	return max_force;
+}
+
+float Agent::getMass() {
+	return mass;
+}
+
 void Agent::setPosition(Vector2D _position)
 {
 	position = _position;
@@ -82,7 +91,7 @@ void Agent::update(float dtime, SDL_Event *event)
 
 	// Apply the steering behavior
 	steering_behaviour->applySteeringForce(this, dtime);
-	
+
 	// Update orientation
 	if (velocity.Length())
 		orientation = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
@@ -99,21 +108,21 @@ void Agent::draw()
 	if (draw_sprite)
 	{
 		Uint32 sprite;
-		
+
 		if (velocity.Length() < 5.0)
 			sprite = 1;
 		else
 			sprite = (int)(SDL_GetTicks() / (-0.1*velocity.Length() + 250)) % sprite_num_frames;
-		
+
 		SDL_Rect srcrect = { (int)sprite * sprite_w, 0, sprite_w, sprite_h };
 		SDL_Rect dstrect = { (int)position.x - (sprite_w / 2), (int)position.y - (sprite_h / 2), sprite_w, sprite_h };
 		SDL_Point center = { sprite_w / 2, sprite_h / 2 };
-		SDL_RenderCopyEx(TheApp::Instance()->getRenderer(), sprite_texture, &srcrect, &dstrect, orientation+90, &center, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(TheApp::Instance()->getRenderer(), sprite_texture, &srcrect, &dstrect, orientation + 90, &center, SDL_FLIP_NONE);
 	}
-	else 
+	else
 	{
 		draw_circle(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, 15, 255, 255, 255, 255);
-		SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, (int)(position.x+15*cos(orientation*DEG2RAD)), (int)(position.y+15*sin(orientation*DEG2RAD)));
+		SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, (int)(position.x + 15 * cos(orientation*DEG2RAD)), (int)(position.y + 15 * sin(orientation*DEG2RAD)));
 	}
 }
 
@@ -137,4 +146,5 @@ bool Agent::loadSpriteTexture(char* filename, int _num_frames)
 		SDL_FreeSurface(image);
 
 	return true;
+
 }

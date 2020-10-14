@@ -28,6 +28,7 @@ private:
 	float orientation;
 	float max_force;
 	float max_velocity;
+	float mass;
 
 	SDL_Texture *sprite_texture;
 	bool draw_sprite;
@@ -42,12 +43,14 @@ public:
 	Vector2D getTarget();
 	Vector2D getVelocity();
 	float getMaxVelocity();
+	float getMaxForce();
+	float getMass();
 	void setBehavior(SteeringBehavior *behavior);
 	void setPosition(Vector2D position);
 	void setTarget(Vector2D target);
 	void setVelocity(Vector2D velocity);
 	void update(float dtime, SDL_Event *event);
 	void draw();
-	bool Agent::loadSpriteTexture(char* filename, int num_frames=1);
-	
+	bool Agent::loadSpriteTexture(char* filename, int num_frames = 1);
+
 };
