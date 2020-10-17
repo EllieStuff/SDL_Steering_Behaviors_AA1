@@ -6,6 +6,8 @@
 #include "SDL_SimpleApp.h"
 #include "Vector2D.h"
 #include "utils.h"
+#include <vector>
+#include <cmath>
 
 
 class Agent
