@@ -1,8 +1,9 @@
 #pragma once
 #include "Agent.h"
+#include "Pursuer.h"
 
 class Flocking :
-	public Agent::SteeringBehavior
+	public Pursuer::SteeringBehavior_2
 {
 public:
 
@@ -20,11 +21,14 @@ public:
 
 	float sep_const, coh_const, ali_const, flock_const;
 
+public:
 	Flocking();
 	~Flocking();
+public:
+	void Separation(int p, std::vector<Pursuer>& bros);
+	void Cohesion(int p, std::vector<Pursuer>& bros);
+	void Alignment(int p, std::vector<Pursuer>& bros);
+	void FlockingForce(int p, std::vector<Pursuer>& bros, float dtime);
 
-	void Separation(std::vector<Agent*> agents);
-	void Cohesion(std::vector<Agent*> agents);
-	void Alignment(std::vector<Agent*> agents);
-	void FlockingForce(std::vector<Agent*> agents, float dtime);
+	void applySteeringForce(Pursuer *pursuer, float dtime);
 };

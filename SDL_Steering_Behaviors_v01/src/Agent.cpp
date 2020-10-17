@@ -2,20 +2,24 @@
 
 using namespace std;
 
-Agent::Agent() : sprite_texture(0),
-position(Vector2D(100, 100)),
-target(Vector2D(1000, 100)),
-velocity(Vector2D(0, 0)),
-speed(0.5),
-max_force(5),
-max_velocity(200),
-mass(0.001f),
-orientation(0),
-sprite_num_frames(0),
-sprite_w(0),
-sprite_h(0),
-draw_sprite(false)
-{
+Agent::Agent() {
+	
+		sprite_texture = 0;
+		position.x = 100;
+		position.y = 100;
+		target.x = 1000;
+		target.y = 100;
+		velocity.x = 0;
+		velocity.y = 0;
+		speed = 0.5f;
+		max_force = 5.0f;
+		max_velocity = 200.0f;
+		mass = 0.001f;
+		orientation = 0.0f;
+		sprite_num_frames = 0.0f;
+		sprite_w = 0.0f;
+		sprite_h = 0.0f;
+		draw_sprite = false;
 }
 
 Agent::~Agent()
@@ -76,7 +80,6 @@ void Agent::setVelocity(Vector2D _velocity)
 
 void Agent::update(float dtime, SDL_Event *event)
 {
-
 	//cout << "agent update:" << endl;
 
 	switch (event->type) {

@@ -38,6 +38,8 @@ private:
 	int sprite_w;
 	int sprite_h;
 
+	int min_pursuers = 20;
+
 public:
 	Agent();
 	~Agent();

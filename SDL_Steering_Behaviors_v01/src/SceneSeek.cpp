@@ -5,7 +5,7 @@ using namespace std;
 
 SceneSeek::SceneSeek()
 {
-	Agent *agent = new Agent;
+	Agent *agent = new Agent();
 	agent->setBehavior(new Seek);
 	agent->setPosition(Vector2D(640,360));
 	agent->setTarget(Vector2D(640, 360));

@@ -5,21 +5,27 @@ using namespace std;
 
 SceneFlocking::SceneFlocking()
 {
-	min_voids = 20;
+		Agent *agent = new Agent();
 
-	for (int f = 0; f < min_voids; f++) {
-		Agent *agent = new Agent;
-
-		agent->setBehavior(new Flocking);
+		agent->setBehavior(new Seek);
 		agent->setPosition(Vector2D(640, 360));
 		agent->setTarget(Vector2D(640, 360));
 		agent->loadSpriteTexture("../res/soldier.png", 4);
+		agents.push_back(agent);
 		target = Vector2D(640, 360);
 
-		agents.push_back(agent);
-	}
+		pursuers = std::vector<Pursuer>(min_voids);
 
-	
+		for (int p = 0; p < min_voids; p++) 
+		{
+			pursuers[p] = Pursuer(p, pursuers);
+
+			pursuers[p].setBehavior(new Flocking);
+			pursuers[p].setPosition(Vector2D(640, 360));
+			pursuers[p].setTarget(Vector2D(640, 360));
+			pursuers[p].loadSpriteTexture("../res/zombie1.png", 8);
+			pursuers[p].setTarget(agent->getPosition());
+		}
 }
 
 SceneFlocking::~SceneFlocking()
@@ -39,27 +45,28 @@ void SceneFlocking::update(float dtime, SDL_Event *event)
 		if (event->button.button == SDL_BUTTON_LEFT)
 		{
 			target = Vector2D((float)(event->button.x), (float)(event->button.y));
-			for (int i = 0; i < (int)agents.size(); i++)
+			agents[0]->setTarget(target);
+			
+			for (int p = 0; p < min_voids; p++)
 			{
-				agents[i]->setTarget(target);
+				pursuers[p].setTarget(agents[0]->getPosition());
 			}
 		}
 		break;
 	default:
 		break;
 	}
-	for (int i = 0; i < (int)agents.size(); i++)
-	{
-		agents[i]->update(dtime, event);
-	}
+		agents[0]->update(dtime, event);
 }
 
 void SceneFlocking::draw()
 {
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
-	for (int i = 0; i < (int)agents.size(); i++)
+	agents[0]->draw();
+
+	for (int p = 0; p < min_voids; p++)
 	{
-		agents[i]->draw();
+		pursuers[p].draw();
 	}
 }
 

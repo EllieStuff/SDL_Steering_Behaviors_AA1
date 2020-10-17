@@ -18,20 +18,19 @@ Flocking::Flocking() {
 
 Flocking::~Flocking() {}
 
-void Flocking::Separation(std::vector<Agent*> agents)
+void Flocking::Separation(int p, std::vector<Pursuer>& bros)
 {
-	sep_force.resize(agents.size());
+	sep_force.resize(bros.size());
+	sep_force[p].x = 0; sep_force[p].y = 0;
 
-	for (int i = 0; i < agents.size(); i++)
+	float bro_count = 0;
+
+	for (int i = 0; i < bros.size(); i++)
 	{
-		int bros = 0;
-		for (int j = 0; j < agents.size(); j++)
-		{
-			if (i == j) { }
-			else {
-				bros++;
-				my_pos = agents[i]->getPosition();
-				bro_pos = agents[j]->getPosition();
+			if (i == p) { }
+			else { bro_count++;
+				my_pos = bros.operator[](p).getPosition();
+				bro_pos = bros.operator[](i).getPosition();
 
 				float x = my_pos.x - bro_pos.x;
 				float y = my_pos.y - bro_pos.y;
@@ -42,101 +41,109 @@ void Flocking::Separation(std::vector<Agent*> agents)
 				float root = sqrt(pow(x, 2) + pow(y, 2));
 
 				if (root < min_distance) {
-					sep_force[i] += my_pos - bro_pos;
+					sep_force[p] += my_pos - bro_pos;
 				}
 			}
+		sep_force[p] /= bro_count;
+		sep_force[p] = sep_force[p].Normalize();
 		}
-		sep_force[i] /= bros;
-		sep_force[i] = sep_force[i].Normalize();
+}
+
+void Flocking::Cohesion(int p, std::vector<Pursuer>& bros)
+{
+	coh_force.resize(bros.size());
+	coh_force[p].x = 0; coh_force[p].y = 0;
+
+	float bro_count = 0;
+
+	for (int i = 0; i < bros.size(); i++)
+	{
+		if (i == p) {}
+		else { bro_count++;
+			my_pos = bros.operator[](p).getPosition();
+			bro_pos = bros.operator[](i).getPosition();
+
+			float x = my_pos.x - bro_pos.x;
+			float y = my_pos.y - bro_pos.y;
+
+			if (x < 0) { x *= -1; }
+			if (y < 0) { y *= -1; }
+
+			float root = sqrt(pow(x, 2) + pow(y, 2));
+
+			if (root > max_distance) {
+				coh_force[p] += bro_pos;
+			}
+		}
+		coh_force[p] /= bro_count;
+		coh_force[p] -= bros.operator[](p).getPosition();
+		coh_force[p] = coh_force[p].Normalize();
 	}
 }
 
-void Flocking::Cohesion(std::vector<Agent*> agents)
+void Flocking::Alignment(int p, std::vector<Pursuer>& bros)
 {
-	coh_force.resize(agents.size());
+	ali_force.resize(bros.size());
+	ali_force[p].x = 0; ali_force[p].y = 0;
 
-	for (int i = 0; i < agents.size(); i++)
+	float bro_count = 0;
+
+	for (int i = 0; i < bros.size(); i++)
 	{
-		int bros = 0;
-		for (int j = 0; j < agents.size(); j++)
-		{
-			if (i == j) {}
-			else {
-				bros++;
-				my_pos = agents[i]->getPosition();
-				bro_pos = agents[j]->getPosition();
+		if (i == p) {}
+		else { bro_count++;
+			my_pos = bros.operator[](p).getPosition();
+			bro_pos = bros.operator[](i).getPosition();
 
-				float x = my_pos.x - bro_pos.x;
-				float y = my_pos.y - bro_pos.y;
+			float x = my_pos.x - bro_pos.x;
+			float y = my_pos.y - bro_pos.y;
 
-				if (x < 0) { x *= -1; }
-				if (y < 0) { y *= -1; }
+			if (x < 0) { x *= -1; }
+			if (y < 0) { y *= -1; }
 
-				float root = sqrt(pow(x, 2) + pow(y, 2));
+			float root = sqrt(pow(x, 2) + pow(y, 2));
 
-				if (root > max_distance) {
-					coh_force[i] += bro_pos;
-				}
+			if (root > min_distance && root < max_distance) {
+				ali_force[p] += bros.operator[](i).getVelocity();
 			}
 		}
-		coh_force[i] /= bros;
-		coh_force[i] -= agents[i]->getPosition();
-		coh_force[i] = coh_force[i].Normalize();
+		ali_force[p] /= bro_count;
+		ali_force[p] = ali_force[p].Normalize();
 	}
 }
 
-void Flocking::Alignment(std::vector<Agent*> agents)
+void Flocking::FlockingForce(int p, std::vector<Pursuer>& bros, float dtime)
 {
-	ali_force.resize(agents.size());
+	flock_force.resize(bros.size());
+	flock_force[p].x = 0; flock_force[p].y = 0;
 
-	for (int i = 0; i < agents.size(); i++)
-	{
-		int bros = 0;
-		for (int j = 0; j < agents.size(); j++)
-		{
-			if (i == j) {}
-			else {
-				bros++;
-				my_pos = agents[i]->getPosition();
-				bro_pos = agents[j]->getPosition();
+		flock_force[p] = (sep_force[p]*sep_const) + (coh_force[p]*coh_const) + (ali_force[p]*ali_const);
 
-				float x = my_pos.x - bro_pos.x;
-				float y = my_pos.y - bro_pos.y;
+		sep_force[p].x = sep_force[p].y = 0;
+		coh_force[p].x = coh_force[p].y = 0;
+		ali_force[p].x = ali_force[p].y = 0;
 
-				if (x < 0) { x *= -1; }
-				if (y < 0) { y *= -1; }
+		flock_force[p] *= flock_const;
 
-				float root = sqrt(pow(x, 2) + pow(y, 2));
+		flock_force[p].Truncate(bros.operator[](p).getMaxForce());
+		Vector2D acc = flock_force[p] / bros.operator[](p).getMass();
 
-				if (root < max_distance && root > min_distance)
-				{
-					ali_force[i] = agents[j]->getVelocity();
-				}
-			}
-		}
-		ali_force[i] /= bros;
-		ali_force[i] = ali_force[i].Normalize();
-	}
+		bros.operator[](p).setVelocity(((bros.operator[](p).getVelocity() * dtime) + ((acc * dtime * dtime) / 2)).Normalize() * bros.operator[](p).getMaxVelocity());
+		bros.operator[](p).setPosition(bros.operator[](p).getPosition() + (bros.operator[](p).getVelocity() * dtime));
 }
 
-void Flocking::FlockingForce(std::vector<Agent*> agents, float dtime)
+void Flocking::applySteeringForce(Pursuer *pursuer, float dtime)
 {
-	flock_force.resize(agents.size());
+	Vector2D desiredVelocity = pursuer->getTarget() - pursuer->getPosition();
+	desiredVelocity.Normalize();
+	desiredVelocity *= pursuer->getMaxVelocity();
 
-	for (int i = 0; i < agents.size(); i++)
-	{
-		flock_force[i] = (sep_force[i]*sep_const) + (coh_force[i]*coh_const) + (ali_force[i]*ali_const);
+	Vector2D steeringForce = desiredVelocity - pursuer->getVelocity();
+	steeringForce.Truncate(pursuer->getMaxForce());
+	Vector2D acc = steeringForce / pursuer->getMass();
+	//d = v*t + 1/2*(a*t^2)  --  a = F/m
+	pursuer->setVelocity(((pursuer->getVelocity() * dtime) + ((acc * dtime * dtime) / 2)).Normalize() * pursuer->getMaxVelocity());
+	pursuer->setPosition(pursuer->getPosition() + (pursuer->getVelocity() * dtime));
 
-		sep_force[i].x = sep_force[i].y = 0;
-		coh_force[i].x = coh_force[i].y = 0;
-		ali_force[i].x = ali_force[i].y = 0;
 
-		flock_force[i] *= flock_const;
-
-		flock_force[i].Truncate(agents[i]->getMaxForce());
-		Vector2D acc = flock_force[i] / agents[i]->getMass();
-
-		agents[i]->setVelocity(((agents[i]->getVelocity() * dtime) + ((acc * dtime * dtime) / 2)).Normalize() * agents[i]->getMaxVelocity());
-		agents[i]->setPosition(agents[i]->getPosition() + (agents[i]->getVelocity() * dtime));
-	}
 }

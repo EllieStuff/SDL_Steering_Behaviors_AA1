@@ -1,21 +1,12 @@
-﻿  Agent.cpp
-  Flee.cpp
-  Flocking.cpp
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(25): warning C4018: '<': signed/unsigned mismatch
+﻿  Flocking.cpp
 c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(28): warning C4018: '<': signed/unsigned mismatch
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(58): warning C4018: '<': signed/unsigned mismatch
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(61): warning C4018: '<': signed/unsigned mismatch
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(82): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(92): warning C4018: '<': signed/unsigned mismatch
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(95): warning C4018: '<': signed/unsigned mismatch
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(117): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(126): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-  SceneFlee.cpp
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(59): warning C4018: '<': signed/unsigned mismatch
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(91): warning C4018: '<': signed/unsigned mismatch
+  Pursuer.cpp
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(22): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   SceneFlocking.cpp
-  SceneSeekFlee.cpp
-  SceneSeek.cpp
-  Seek.cpp
+  main.cpp
   Generating Code...
   SDL_Steering_Behaviors.vcxproj -> C:\Users\serra\Desktop\Universidad\3r Año\IA\AA1\SDL_Steering_Behaviors_AA1\SDL_Steering_Behaviors_v01\\bin\SDL_Steering_Behaviors.exe
