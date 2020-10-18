@@ -6,6 +6,8 @@
 #include "SDL_SimpleApp.h"
 #include "Vector2D.h"
 #include "utils.h"
+#include <vector>
+#include <cmath>
 
 
 class Agent
@@ -36,6 +38,8 @@ private:
 	int sprite_w;
 	int sprite_h;
 
+	int min_pursuers = 20;
+
 public:
 	Agent();
 	~Agent();
@@ -45,10 +49,12 @@ public:
 	float getMaxVelocity();
 	float getMaxForce();
 	float getMass();
+	float getSpeed();
 	void setBehavior(SteeringBehavior *behavior);
 	void setPosition(Vector2D position);
 	void setTarget(Vector2D target);
 	void setVelocity(Vector2D velocity);
+	void setSpeed(float speed);
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	bool Agent::loadSpriteTexture(char* filename, int num_frames = 1);

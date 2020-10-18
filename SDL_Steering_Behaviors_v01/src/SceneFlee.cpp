@@ -5,7 +5,7 @@ using namespace std;
 
 SceneFlee::SceneFlee()
 {
-	Agent *agent = new Agent;
+	Agent *agent = new Agent();
 	agent->setBehavior(new Flee);
 	agent->setPosition(Vector2D(640,360));
 	agent->setTarget(Vector2D(640, 360));

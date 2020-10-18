@@ -2,20 +2,24 @@
 
 using namespace std;
 
-Agent::Agent() : sprite_texture(0),
-position(Vector2D(100, 100)),
-target(Vector2D(1000, 100)),
-velocity(Vector2D(0, 0)),
-speed(0.5),
-max_force(5),
-max_velocity(200),
-mass(0.001f),
-orientation(0),
-sprite_num_frames(0),
-sprite_w(0),
-sprite_h(0),
-draw_sprite(false)
-{
+Agent::Agent() {
+	
+		sprite_texture = 0;
+		position.x = 100;
+		position.y = 100;
+		target.x = 1000;
+		target.y = 100;
+		velocity.x = 0;
+		velocity.y = 0;
+		speed = 0.5f;
+		max_force = 5.0f;
+		max_velocity = 200.0f;
+		mass = 0.001f;
+		orientation = 0.0f;
+		sprite_num_frames = 0.0f;
+		sprite_w = 0.0f;
+		sprite_h = 0.0f;
+		draw_sprite = false;
 }
 
 Agent::~Agent()
@@ -59,6 +63,11 @@ float Agent::getMass() {
 	return mass;
 }
 
+float Agent::getSpeed()
+{
+	return speed;
+}
+
 void Agent::setPosition(Vector2D _position)
 {
 	position = _position;
@@ -74,9 +83,13 @@ void Agent::setVelocity(Vector2D _velocity)
 	velocity = _velocity;
 }
 
+void Agent::setSpeed(float _speed)
+{
+	speed = _speed;
+}
+
 void Agent::update(float dtime, SDL_Event *event)
 {
-
 	//cout << "agent update:" << endl;
 
 	switch (event->type) {
@@ -91,6 +104,9 @@ void Agent::update(float dtime, SDL_Event *event)
 
 	// Apply the steering behavior
 	steering_behaviour->applySteeringForce(this, dtime);
+
+	//Calculate speed in order to use it for the T in Pursue
+	setSpeed(getVelocity().Length());
 
 	// Update orientation
 	if (velocity.Length())

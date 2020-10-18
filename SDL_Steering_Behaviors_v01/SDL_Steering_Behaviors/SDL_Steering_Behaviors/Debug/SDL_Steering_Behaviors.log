@@ -1,2 +1,13 @@
-﻿  LINK : no se encontró C:\Users\joelm\Desktop\Uni\3r\IAs\AA1\Repositorio\SDL_Steering_Behaviors_AA1\SDL_Steering_Behaviors_v01\\bin\SDL_Steering_Behaviors.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
-  SDL_Steering_Behaviors.vcxproj -> C:\Users\joelm\Desktop\Uni\3r\IAs\AA1\Repositorio\SDL_Steering_Behaviors_AA1\SDL_Steering_Behaviors_v01\\bin\SDL_Steering_Behaviors.exe
+﻿  Flocking.cpp
+c:\users\joelm\desktop\uni\3r\ias\aa1\bs\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(24): warning C4018: '<': no coinciden signed/unsigned
+c:\users\joelm\desktop\uni\3r\ias\aa1\bs\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(58): warning C4018: '<': no coinciden signed/unsigned
+c:\users\joelm\desktop\uni\3r\ias\aa1\bs\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(94): warning C4018: '<': no coinciden signed/unsigned
+  Pursuer.cpp
+c:\users\joelm\desktop\uni\3r\ias\aa1\bs\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(22): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\joelm\desktop\uni\3r\ias\aa1\bs\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(23): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\joelm\desktop\uni\3r\ias\aa1\bs\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(24): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  SceneFlocking.cpp
+c:\users\joelm\desktop\uni\3r\ias\aa1\bs\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\sceneflocking.cpp(26): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+  main.cpp
+  Generando código...
+  SDL_Steering_Behaviors.vcxproj -> C:\Users\joelm\Desktop\Uni\3r\IAs\AA1\BS\SDL_Steering_Behaviors_AA1\SDL_Steering_Behaviors_v01\\bin\SDL_Steering_Behaviors.exe

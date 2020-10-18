@@ -6,7 +6,7 @@ using namespace std;
 
 SceneSeekFlee::SceneSeekFlee()
 {
-	Agent *agent = new Agent;
+	Agent *agent = new Agent();
 	agent->setBehavior(new Seek);
 	agent->setTarget(Vector2D(100, 100));
 	agent->loadSpriteTexture("../res/zombie1.png", 8);
