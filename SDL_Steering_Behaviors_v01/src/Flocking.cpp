@@ -118,13 +118,35 @@ void Flocking::Alignment(int p, std::vector<Pursuer>& bros)
 	}
 }
 
+void Flocking::PursueForce(Pursuer *pursuer, float dtime)
+{
+	float T = 1;
+	//Checks if the target is idle
+	if (pursuer->getTarget()->getSpeed() > 0) {
+		T = Vector2D::Distance(pursuer->getPosition(), pursuer->getTarget()->getPosition()) / pursuer->getTarget()->getSpeed();
+	}
+	Vector2D predictedTarget = pursuer->getTarget()->getPosition() + pursuer->getTarget()->getVelocity() * T;
+
+	Vector2D desiredVelocity = predictedTarget - pursuer->getPosition();
+	desiredVelocity.Normalize();
+	desiredVelocity *= pursuer->getMaxVelocity();
+
+	Vector2D steeringForce = desiredVelocity - pursuer->getVelocity();
+	steeringForce.Truncate(pursuer->getMaxForce());
+
+	//d = v*t + 1/2*(a*t^2)  --  a = F/m
+	Vector2D acc = steeringForce / pursuer->getMass();
+	pursuer->setVelocity(((pursuer->getVelocity() * dtime) + ((acc * dtime * dtime) / 2)).Normalize() * pursuer->getMaxVelocity());
+
+}
+
 void Flocking::FlockingForce(int p, std::vector<Pursuer>& bros, float dtime)
 {
 	flock_force.resize(bros.size());
 
-	flock_force[p].x = 0; flock_force[p].y = 0;
+	flock_force[p].x = flock_force[p].y = 0;
 
-		flock_force[p] = (sep_force[p]*sep_const) + (coh_force[p]*coh_const) + (ali_force[p]*ali_const);
+		flock_force[p] = (sep_force[p]*sep_const) + (coh_force[p]*coh_const) + (ali_force[p]*ali_const) + bros.operator[](p).getVelocity();
 
 		flock_force[p] *= flock_const;
 
@@ -135,21 +157,3 @@ void Flocking::FlockingForce(int p, std::vector<Pursuer>& bros, float dtime)
 		bros.operator[](p).setPosition(bros.operator[](p).getPosition() + (bros.operator[](p).getVelocity() * dtime));
 
 }
-
-//void Flocking::pursue()
-
-/*void Flocking::applySteeringForce(Pursuer *pursuer, float dtime)
-{
-	Vector2D desiredVelocity = pursuer->getTarget() - pursuer->getPosition();
-	desiredVelocity.Normalize();
-	desiredVelocity *= pursuer->getMaxVelocity();
-
-	Vector2D steeringForce = desiredVelocity - pursuer->getVelocity();
-	steeringForce.Truncate(pursuer->getMaxForce());
-	Vector2D acc = steeringForce / pursuer->getMass();
-	//d = v*t + 1/2*(a*t^2)  --  a = F/m
-	pursuer->setVelocity(((pursuer->getVelocity() * dtime) + ((acc * dtime * dtime) / 2)).Normalize() * pursuer->getMaxVelocity());
-	pursuer->setPosition(pursuer->getPosition() + (pursuer->getVelocity() * dtime));
-
-
-}*/

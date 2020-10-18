@@ -63,6 +63,11 @@ float Agent::getMass() {
 	return mass;
 }
 
+float Agent::getSpeed()
+{
+	return speed;
+}
+
 void Agent::setPosition(Vector2D _position)
 {
 	position = _position;
@@ -76,6 +81,11 @@ void Agent::setTarget(Vector2D _target)
 void Agent::setVelocity(Vector2D _velocity)
 {
 	velocity = _velocity;
+}
+
+void Agent::setSpeed(float _speed)
+{
+	speed = _speed;
 }
 
 void Agent::update(float dtime, SDL_Event *event)
@@ -94,6 +104,9 @@ void Agent::update(float dtime, SDL_Event *event)
 
 	// Apply the steering behavior
 	steering_behaviour->applySteeringForce(this, dtime);
+
+	//Calculate speed in order to use it for the T in Pursue
+	setSpeed(getVelocity().Length());
 
 	// Update orientation
 	if (velocity.Length())

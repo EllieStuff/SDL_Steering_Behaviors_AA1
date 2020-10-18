@@ -1,13 +1,5 @@
 #pragma once
-#include <iostream>
-#include <minmax.h>
-#include <SDL.h>
-#include <SDL_image.h>
-#include "SDL_SimpleApp.h"
-#include "Vector2D.h"
-#include "utils.h"
-#include <vector>
-#include <cmath>
+#include "Agent.h"
 
 
 class Pursuer
@@ -22,9 +14,9 @@ public:
 		virtual void Separation(int p, std::vector<Pursuer>& bros) {};
 		virtual void Cohesion(int p, std::vector<Pursuer>& bros) {};
 		virtual void Alignment(int p, std::vector<Pursuer>& bros) {};
-		virtual void FlockingForce(int p, std::vector<Pursuer>& bros, float dtime) {};
+		virtual void PursueForce(Pursuer *pursuer, float dtime) {};
 
-		virtual void applySteeringForce(Pursuer *pursuer, float dtime) {};
+		virtual void FlockingForce(int p, std::vector<Pursuer>& bros, float dtime) {};
 	};
 	
 	std::vector<Pursuer>* bros;
@@ -34,7 +26,8 @@ private:
 	SteeringBehavior_2 *steering_behaviour;
 	Vector2D position;
 	Vector2D velocity;
-	Vector2D target;
+	//Vector2D *target;
+	Agent *target;
 
 	float speed;
 	float orientation;
@@ -58,14 +51,16 @@ public:
 	Pursuer(int _id, std::vector<Pursuer>* vec);
 	~Pursuer();
 	Vector2D getPosition();
-	Vector2D getTarget();
+	//Vector2D getTarget();
+	Agent* getTarget();
 	Vector2D getVelocity();
 	float getMaxVelocity();
 	float getMaxForce();
 	float getMass();
 	void setBehavior(SteeringBehavior_2 *behavior);
 	void setPosition(Vector2D position);
-	void setTarget(Vector2D target);
+	//void setTarget(Vector2D target);
+	void setTarget(Agent *target);
 	void setVelocity(Vector2D velocity);
 	void update(float dtime, SDL_Event *event);
 	void draw();

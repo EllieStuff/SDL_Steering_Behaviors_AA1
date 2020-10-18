@@ -28,9 +28,7 @@ public:
 	void Separation(int p, std::vector<Pursuer>& bros);
 	void Cohesion(int p, std::vector<Pursuer>& bros);
 	void Alignment(int p, std::vector<Pursuer>& bros);
+	void PursueForce(Pursuer *pursuer, float dtime);
 	void FlockingForce(int p, std::vector<Pursuer>& bros, float dtime);
 
-	//void pursue()
-
-	//void applySteeringForce(Pursuer *pursuer, float dtime);
 };

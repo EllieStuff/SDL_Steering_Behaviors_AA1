@@ -9,8 +9,9 @@ Pursuer::Pursuer(int _id, std::vector<Pursuer>* vec) {
 	sprite_texture = 0;
 	position.x = 100;
 	position.y = 100;
-	target.x = 1000;
-	target.y = 100;
+	/*target->x = 1000;
+	target->y = 100;*/
+	//setTarget(_target);
 	velocity.x = 0;
 	velocity.y = 0;
 	speed = 0.5f;
@@ -48,7 +49,12 @@ Vector2D Pursuer::getPosition()
 	return position;
 }
 
-Vector2D Pursuer::getTarget()
+//Vector2D Pursuer::getTarget()
+//{
+//	return *target;
+//}
+
+Agent* Pursuer::getTarget() 
 {
 	return target;
 }
@@ -76,7 +82,12 @@ void Pursuer::setPosition(Vector2D _position)
 	position = _position;
 }
 
-void Pursuer::setTarget(Vector2D _target)
+//void Pursuer::setTarget(Vector2D _target)
+//{
+//	target = &_target;
+//}
+
+void Pursuer::setTarget(Agent *_target) 
 {
 	target = _target;
 }
@@ -101,6 +112,7 @@ void Pursuer::update(float dtime, SDL_Event *event)
 	}
 
 	// Apply the steering behavior
+	steering_behaviour->PursueForce(this, dtime);
 
 	steering_behaviour->Separation(id, *bros);
 	steering_behaviour->Cohesion(id, *bros);
@@ -110,6 +122,7 @@ void Pursuer::update(float dtime, SDL_Event *event)
 
 	//steering_behaviour->pursue()
 	// Quizás sumar la "Fuerza Pursue" en la función FlockingForce, igual que se hace con la Sparation_Force, la Cohesin_Force y la Alignment_Force?
+
 
 	// Update orientation
 	if (velocity.Length())

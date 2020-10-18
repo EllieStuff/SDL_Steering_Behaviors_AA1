@@ -24,9 +24,8 @@ SceneFlocking::SceneFlocking()
 
 			pursuers[p].setBehavior(new Flocking);
 			pursuers[p].setPosition(Vector2D(20*p, 30*p));
-			pursuers[p].setTarget(Vector2D(640, 360));
 			pursuers[p].loadSpriteTexture("../res/zombie1.png", 8);
-			pursuers[p].setTarget(agent->getPosition());
+			pursuers[p].setTarget(agent);
 		}
 }
 
@@ -56,7 +55,6 @@ void SceneFlocking::update(float dtime, SDL_Event *event)
 
 	for (int p = 0; p < min_voids; p++)
 	{
-		pursuers[p].setTarget(agents[0]->getPosition());
 		pursuers[p].update(dtime, event);
 	}
 
