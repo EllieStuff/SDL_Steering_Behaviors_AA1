@@ -30,5 +30,7 @@ public:
 	void Alignment(int p, std::vector<Pursuer>& bros);
 	void FlockingForce(int p, std::vector<Pursuer>& bros, float dtime);
 
-	void applySteeringForce(Pursuer *pursuer, float dtime);
+	//void pursue()
+
+	//void applySteeringForce(Pursuer *pursuer, float dtime);
 };

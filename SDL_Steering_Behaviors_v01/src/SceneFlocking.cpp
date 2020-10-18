@@ -23,7 +23,7 @@ SceneFlocking::SceneFlocking()
 			pursuers.push_back(Pursuer(p, &pursuers));
 
 			pursuers[p].setBehavior(new Flocking);
-			pursuers[p].setPosition(Vector2D(640, 360));
+			pursuers[p].setPosition(Vector2D(20*p, 30*p));
 			pursuers[p].setTarget(Vector2D(640, 360));
 			pursuers[p].loadSpriteTexture("../res/zombie1.png", 8);
 			pursuers[p].setTarget(agent->getPosition());

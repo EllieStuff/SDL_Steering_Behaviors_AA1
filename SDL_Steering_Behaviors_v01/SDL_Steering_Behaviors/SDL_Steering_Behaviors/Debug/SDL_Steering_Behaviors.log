@@ -1,5 +1,13 @@
 ﻿  Flocking.cpp
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(28): warning C4018: '<': signed/unsigned mismatch
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(62): warning C4018: '<': signed/unsigned mismatch
-c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(99): warning C4018: '<': signed/unsigned mismatch
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(24): warning C4018: '<': signed/unsigned mismatch
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(58): warning C4018: '<': signed/unsigned mismatch
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\flocking.cpp(94): warning C4018: '<': signed/unsigned mismatch
+  Pursuer.cpp
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(22): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\pursuer.cpp(23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  SceneFlocking.cpp
+c:\users\serra\desktop\universidad\3r año\ia\aa1\sdl_steering_behaviors_aa1\sdl_steering_behaviors_v01\src\sceneflocking.cpp(26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
   SDL_Steering_Behaviors.vcxproj -> C:\Users\serra\Desktop\Universidad\3r Año\IA\AA1\SDL_Steering_Behaviors_AA1\SDL_Steering_Behaviors_v01\\bin\SDL_Steering_Behaviors.exe

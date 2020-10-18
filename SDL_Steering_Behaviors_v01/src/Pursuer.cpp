@@ -101,11 +101,15 @@ void Pursuer::update(float dtime, SDL_Event *event)
 	}
 
 	// Apply the steering behavior
-	//steering_behaviour->applySteeringForce(this, dtime);
+
 	steering_behaviour->Separation(id, *bros);
-	//steering_behaviour->Cohesion(id, *bros);
-	//steering_behaviour->Alignment(id, *bros);
+	steering_behaviour->Cohesion(id, *bros);
+	steering_behaviour->Alignment(id, *bros);
+
 	steering_behaviour->FlockingForce(id, *bros, dtime);
+
+	//steering_behaviour->pursue()
+	// Quizás sumar la "Fuerza Pursue" en la función FlockingForce, igual que se hace con la Sparation_Force, la Cohesin_Force y la Alignment_Force?
 
 	// Update orientation
 	if (velocity.Length())
