@@ -5,6 +5,8 @@ using namespace std;
 
 SceneFlocking::SceneFlocking()
 {
+	min_voids = 20;
+
 		Agent *agent = new Agent();
 
 		agent->setBehavior(new Seek);
@@ -14,11 +16,11 @@ SceneFlocking::SceneFlocking()
 		agents.push_back(agent);
 		target = Vector2D(640, 360);
 
-		pursuers = std::vector<Pursuer>(min_voids);
+		//pursuers = std::vector<Pursuer>(min_voids);
 
 		for (int p = 0; p < min_voids; p++) 
 		{
-			pursuers[p] = Pursuer(p, pursuers);
+			pursuers.push_back(Pursuer(p, &pursuers));
 
 			pursuers[p].setBehavior(new Flocking);
 			pursuers[p].setPosition(Vector2D(640, 360));
@@ -46,16 +48,18 @@ void SceneFlocking::update(float dtime, SDL_Event *event)
 		{
 			target = Vector2D((float)(event->button.x), (float)(event->button.y));
 			agents[0]->setTarget(target);
-			
-			for (int p = 0; p < min_voids; p++)
-			{
-				pursuers[p].setTarget(agents[0]->getPosition());
-			}
 		}
 		break;
 	default:
 		break;
 	}
+
+	for (int p = 0; p < min_voids; p++)
+	{
+		pursuers[p].setTarget(agents[0]->getPosition());
+		pursuers[p].update(dtime, event);
+	}
+
 		agents[0]->update(dtime, event);
 }
 

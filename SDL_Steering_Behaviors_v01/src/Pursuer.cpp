@@ -4,7 +4,7 @@ using namespace std;
 
 Pursuer::Pursuer() {}
 
-Pursuer::Pursuer(int _id, std::vector<Pursuer> vec) {
+Pursuer::Pursuer(int _id, std::vector<Pursuer>* vec) {
 
 	sprite_texture = 0;
 	position.x = 100;
@@ -23,6 +23,8 @@ Pursuer::Pursuer(int _id, std::vector<Pursuer> vec) {
 	sprite_h = 0.0f;
 	draw_sprite = false;
 
+	//steering_behaviour = 0;
+
 	id = _id; // Posición en el vector
 	bros = vec;
 
@@ -30,10 +32,10 @@ Pursuer::Pursuer(int _id, std::vector<Pursuer> vec) {
 
 Pursuer::~Pursuer()
 {
-	if (sprite_texture)
+	/*if (sprite_texture)
 		SDL_DestroyTexture(sprite_texture);
 	if (steering_behaviour)
-		delete (steering_behaviour);
+		delete (steering_behaviour);*/
 }
 
 void Pursuer::setBehavior(SteeringBehavior_2 *behavior)
@@ -99,11 +101,11 @@ void Pursuer::update(float dtime, SDL_Event *event)
 	}
 
 	// Apply the steering behavior
-	steering_behaviour->applySteeringForce(this, dtime);
-	steering_behaviour->Separation(id, bros);
-	steering_behaviour->Cohesion(id, bros);
-	steering_behaviour->Alignment(id, bros);
-	steering_behaviour->FlockingForce(id, bros, dtime);
+	//steering_behaviour->applySteeringForce(this, dtime);
+	steering_behaviour->Separation(id, *bros);
+	//steering_behaviour->Cohesion(id, *bros);
+	//steering_behaviour->Alignment(id, *bros);
+	steering_behaviour->FlockingForce(id, *bros, dtime);
 
 	// Update orientation
 	if (velocity.Length())

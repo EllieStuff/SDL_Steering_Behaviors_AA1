@@ -27,7 +27,7 @@ public:
 		virtual void applySteeringForce(Pursuer *pursuer, float dtime) {};
 	};
 	
-	std::vector<Pursuer> bros;
+	std::vector<Pursuer>* bros;
 
 private:
 	
@@ -48,14 +48,14 @@ private:
 	int sprite_w;
 	int sprite_h;
 
-	int min_pursuers = 20;
+	//int min_pursuers = 20;
 
 	int id;
 
 
 public:
 	Pursuer();
-	Pursuer(int _id, std::vector<Pursuer> vec);
+	Pursuer(int _id, std::vector<Pursuer>* vec);
 	~Pursuer();
 	Vector2D getPosition();
 	Vector2D getTarget();
