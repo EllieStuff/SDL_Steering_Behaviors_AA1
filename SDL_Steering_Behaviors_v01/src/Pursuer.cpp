@@ -113,8 +113,6 @@ void Pursuer::setVelocity(Vector2D _velocity)
 
 void Pursuer::update(float dtime, SDL_Event *event)
 {
-	rayManager->position = &position;
-	rayManager->velocity = &velocity;
 	//cout << "Pursuer update:" << endl;
 
 	switch (event->type) {
@@ -127,6 +125,8 @@ void Pursuer::update(float dtime, SDL_Event *event)
 		break;
 	}
 
+	rayManager->position = &position;
+	rayManager->velocity = &velocity;
 	Vector2D collPos = rayManager->Update();
 	if (collPos == NULL)
 	{	

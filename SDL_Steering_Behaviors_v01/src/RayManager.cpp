@@ -89,6 +89,11 @@ Vector2D RayManager::Update()
 				if (dist < obstacles[j].radius)
 				{
 					//WE HAVE COLLISION
+					//If the pursuer is inside the circle, push them back a bit
+					if (Mod(*position - obstacles[j].position) < obstacles[j].radius)
+					{
+						*position = obstacles[j].position + (Normalized(*position - obstacles[j].position) * obstacles[j].radius);
+					}
 					return obstacles[j].position;
 				}
 				dist = 0;
