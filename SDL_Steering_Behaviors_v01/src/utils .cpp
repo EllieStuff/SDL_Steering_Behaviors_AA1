@@ -3,6 +3,18 @@
 #include <iostream>
 #include <string>
 #include <SDL.h>
+#include "Vector2D.h"
+
+float Mod(Vector2D vec)
+{
+	return (sqrt((vec.x * vec.x) + (vec.y * vec.y)));
+}
+
+Vector2D Normalized(Vector2D vec)
+{
+	float mod = Mod(vec);
+	return Vector2D(vec.x / mod, vec.y / mod);
+}
 
 /* Get the resource path for resources located in res/subDir */
 std::string getResourcePath(const std::string &subDir = "") {

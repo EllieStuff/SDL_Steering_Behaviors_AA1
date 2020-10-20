@@ -1,5 +1,6 @@
 #include "SceneFlocking.h"
 #include "Flocking.h"
+#include "Flee.h"
 
 using namespace std;
 
@@ -17,11 +18,17 @@ SceneFlocking::SceneFlocking()
 		target = Vector2D(640, 360);
 
 		//pursuers = std::vector<Pursuer>(min_voids);
+		obstacles = new Obstacle[max_obstacles];
+		for (int p = 0; p < max_obstacles; p++)
+		{
+			obstacles[p].SetStats(50 + rand() % 50, Vector2D(rand() % 1000, 50 + rand() % 700));
+		}
 
 		for (int p = 0; p < min_voids; p++) 
 		{
 			pursuers.push_back(Pursuer(p, &pursuers));
 
+			pursuers[p].rayManager->obstacles = obstacles;
 			pursuers[p].setBehavior(new Flocking);
 			pursuers[p].setPosition(Vector2D(20*p, 30*p));
 			pursuers[p].loadSpriteTexture("../res/zombie1.png", 8);
@@ -57,18 +64,23 @@ void SceneFlocking::update(float dtime, SDL_Event *event)
 	{
 		pursuers[p].update(dtime, event);
 	}
-
-		agents[0]->update(dtime, event);
+	agents[0]->update(dtime, event);
 }
 
 void SceneFlocking::draw()
 {
+
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
 
 	for (int p = 0; p < min_voids; p++)
 	{
 		pursuers[p].draw();
+	}
+
+	for (int p = 0; p < max_obstacles; p++)
+	{
+		obstacles[p].draw();
 	}
 }
 

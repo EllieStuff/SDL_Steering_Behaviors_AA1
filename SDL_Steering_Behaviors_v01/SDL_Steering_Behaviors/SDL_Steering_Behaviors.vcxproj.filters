@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Avoid">
+      <UniqueIdentifier>{1f0ada15-3296-425a-ad00-6cba5b865f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Avoid">
+      <UniqueIdentifier>{324e73e2-32df-4dc5-b199-dbb152b947e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -50,6 +56,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Pursuer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Obstacle.cpp">
+      <Filter>Source Files\Avoid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RayManager.cpp">
+      <Filter>Source Files\Avoid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Pursuer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Obstacle.h">
+      <Filter>Header Files\Avoid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Raymanager.h">
+      <Filter>Header Files\Avoid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

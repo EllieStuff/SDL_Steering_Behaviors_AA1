@@ -1,10 +1,11 @@
 #pragma once
 #include "Agent.h"
-
+#include "Raymanager.h"
 
 class Pursuer
 {
 public:
+	RayManager *rayManager;
 	class SteeringBehavior_2
 	{
 	public:
@@ -18,12 +19,23 @@ public:
 
 		virtual void FlockingForce(int p, std::vector<Pursuer>& bros, float dtime) {};
 	};
+
+	class AvoidObst
+	{
+	public:
+		AvoidObst();
+		~AvoidObst();
+		void applySteeringForce(Pursuer *agent, Vector2D obstPos, float dtime);
+	};
 	
 	std::vector<Pursuer>* bros;
 
 private:
 	
+	AvoidObst *fleeBehaviour;
 	SteeringBehavior_2 *steering_behaviour;
+	
+
 	Vector2D position;
 	Vector2D velocity;
 	//Vector2D *target;

@@ -10,6 +10,7 @@ class SceneFlocking :
 public:
 	int min_voids;
 
+	Obstacle *obstacles;
 	std::vector<Pursuer> pursuers;
 
 	SceneFlocking();

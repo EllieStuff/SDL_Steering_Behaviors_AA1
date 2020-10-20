@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{48D8AFB0-551E-45CB-8730-E2CF8571445D}</ProjectGuid>
     <RootNamespace>SDL_Steering_Behaviors</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -134,7 +134,9 @@
     <ClCompile Include="..\src\Flee.cpp" />
     <ClCompile Include="..\src\Flocking.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Obstacle.cpp" />
     <ClCompile Include="..\src\Pursuer.cpp" />
+    <ClCompile Include="..\src\RayManager.cpp" />
     <ClCompile Include="..\src\SceneFlee.cpp" />
     <ClCompile Include="..\src\SceneFlocking.cpp" />
     <ClCompile Include="..\src\SceneSeekFlee.cpp" />
@@ -147,7 +149,9 @@
     <ClInclude Include="..\src\Agent.h" />
     <ClInclude Include="..\src\Flee.h" />
     <ClInclude Include="..\src\Flocking.h" />
+    <ClInclude Include="..\src\Obstacle.h" />
     <ClInclude Include="..\src\Pursuer.h" />
+    <ClInclude Include="..\src\Raymanager.h" />
     <ClInclude Include="..\src\SceneFlocking.h" />
     <ClInclude Include="..\src\utils.h" />
     <ClInclude Include="..\src\Scene.h" />

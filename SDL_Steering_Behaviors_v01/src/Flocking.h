@@ -1,6 +1,7 @@
 #pragma once
 #include "Agent.h"
 #include "Pursuer.h"
+#include "Obstacle.h"
 
 class Flocking :
 	public Pursuer::SteeringBehavior_2

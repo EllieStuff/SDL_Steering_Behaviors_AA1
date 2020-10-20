@@ -2,6 +2,29 @@
 
 using namespace std;
 
+Pursuer::AvoidObst::AvoidObst()
+{
+}
+
+Pursuer::AvoidObst::~AvoidObst()
+{
+}
+
+void Pursuer::AvoidObst::applySteeringForce(Pursuer *agent, Vector2D obstPos, float dtime)
+{
+	Vector2D desiredVelocity = (obstPos - agent->getPosition()) * -1;
+	desiredVelocity.Normalize();
+	desiredVelocity *= agent->getMaxVelocity();
+
+	Vector2D steeringForce = desiredVelocity - agent->getVelocity();
+	steeringForce.Truncate(agent->getMaxForce());
+
+	//d = v*t + 1/2*(a*t^2)  --  a = F/m
+	Vector2D acc = steeringForce / agent->getMass();
+	agent->setVelocity(((agent->getVelocity() * dtime) + ((acc * dtime * dtime) / 2)).Normalize() * agent->getMaxVelocity());
+	agent->setPosition(agent->getPosition() + (agent->getVelocity() * dtime));
+}
+
 Pursuer::Pursuer() {}
 
 Pursuer::Pursuer(int _id, std::vector<Pursuer>* vec) {
@@ -16,7 +39,7 @@ Pursuer::Pursuer(int _id, std::vector<Pursuer>* vec) {
 	velocity.y = 0;
 	speed = 0.5f;
 	max_force = 5.0f;
-	max_velocity = 200.0f;
+	max_velocity = 120.0f;
 	mass = 0.001f;
 	orientation = 0.0f;
 	sprite_num_frames = 0.0f;
@@ -28,7 +51,8 @@ Pursuer::Pursuer(int _id, std::vector<Pursuer>* vec) {
 
 	id = _id; // Posición en el vector
 	bros = vec;
-
+	rayManager = new RayManager(4, 14, 130, &position, &velocity);
+	fleeBehaviour = new AvoidObst();
 }
 
 Pursuer::~Pursuer()
@@ -48,11 +72,6 @@ Vector2D Pursuer::getPosition()
 {
 	return position;
 }
-
-//Vector2D Pursuer::getTarget()
-//{
-//	return *target;
-//}
 
 Agent* Pursuer::getTarget() 
 {
@@ -82,11 +101,6 @@ void Pursuer::setPosition(Vector2D _position)
 	position = _position;
 }
 
-//void Pursuer::setTarget(Vector2D _target)
-//{
-//	target = &_target;
-//}
-
 void Pursuer::setTarget(Agent *_target) 
 {
 	target = _target;
@@ -99,6 +113,8 @@ void Pursuer::setVelocity(Vector2D _velocity)
 
 void Pursuer::update(float dtime, SDL_Event *event)
 {
+	rayManager->position = &position;
+	rayManager->velocity = &velocity;
 	//cout << "Pursuer update:" << endl;
 
 	switch (event->type) {
@@ -111,8 +127,17 @@ void Pursuer::update(float dtime, SDL_Event *event)
 		break;
 	}
 
-	// Apply the steering behavior
-	steering_behaviour->PursueForce(this, dtime);
+	Vector2D collPos = rayManager->Update();
+	if (collPos == NULL)
+	{	
+		// Apply the steering behavior
+		steering_behaviour->PursueForce(this, dtime);
+	}
+	else
+	{
+		//If we have collision(update returns collision position) engage the flee behaviour
+		fleeBehaviour->applySteeringForce(this, collPos, dtime);
+	}
 
 	steering_behaviour->Separation(id, *bros);
 	steering_behaviour->Cohesion(id, *bros);
@@ -137,6 +162,8 @@ void Pursuer::update(float dtime, SDL_Event *event)
 
 void Pursuer::draw()
 {
+	//rayManager->drawAllRays();
+
 	if (draw_sprite)
 	{
 		Uint32 sprite;
